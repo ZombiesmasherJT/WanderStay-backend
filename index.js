@@ -35,6 +35,8 @@ app.get("/rooms", (req, res) => {
 app.post("/rooms", authMiddleware(["admin"]), (req, res) => {
     const { roomType, price, availability, description } = req.body;
 
+     console.log("Received room creation request:", { roomType, price, availability, description });
+
 
     if (!roomType || !price || availability === undefined || !description) {
         return res.status(400).json({ error: "Missing required fields" });
