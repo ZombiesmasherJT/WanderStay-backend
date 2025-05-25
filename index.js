@@ -1,22 +1,27 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-console.log("JWT SECRET:", process.env.JWT_SECRET);
-const db = require("./db");  // Import db.js
+const db = require("./db"); // Import db.js
 const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middleware/authMiddleware");
+
+const app = express(); // <--- move this UP before cors()
 
 const corsOptions = {
   origin: "https://wanderstay-fb3lrxzg-zombiesmasherjts-projects.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 };
 
-
-const app = express();
-app.use(cors(corsOptions));     
-app.options("*", cors(corsOptions));  
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // important for preflight
 app.use(express.json());
+
+
+
+
+
 
 // Connect auth routes
 app.use("/auth", authRoutes);
