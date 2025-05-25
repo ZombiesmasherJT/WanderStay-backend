@@ -6,9 +6,25 @@ const db = require("./db");  // Import db.js
 const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middleware/authMiddleware");
 
+
+const corsOptions = {
+  origin: "https://wanderstay-fb3lrxzg-zombiesmasherjts-projects.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json());
+
+
+
+
+
+
+
 
 // Connect auth routes
 app.use("/auth", authRoutes);
