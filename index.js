@@ -7,7 +7,7 @@ const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middleware/authMiddleware");
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors);
 app.use(express.json());
 
 // Connect auth routes
